@@ -5,6 +5,8 @@ import React, {
   useMemo,
   useState,
 } from "react";
+import shuffle from "../utils/shuffle";
+import { nanoid } from "nanoid";
 
 export const ApiContext = createContext(null);
 
@@ -22,11 +24,36 @@ export const ApiProvider = ({ children }) => {
     buildQuiz(data.results);
   };
 
-  const buildQuiz =(getQuestions) => {
-    setQuestions(getQuestions.map(question => {
-      const options =
-    }))
-  }
+  const buildQuiz = (getQuestions) => {
+    setQuestions(
+      getQuestions.map((question) => {
+        const options = shuffle([
+          {
+            id: nanoid(),
+            text: question.correct_answer,
+            correct: true,
+            selected: false,
+            isCorrect: false,
+            isIncorrect: false,
+            checked: false,
+          },
+          ...question.incorrect_answers.map((q) => ({
+            id: nanoid(),
+            text: q,
+            correct: false,
+            selected: false,
+            isCorrect: false,
+            isIncorrect: false,
+            checked: false,
+          })),
+        ]);
+        return {
+          questionText: question.question,
+          options: options,
+        };
+      })
+    );
+  };
 
   const updateSelection = useCallback(
     (questionIndex, optionIndex) => {

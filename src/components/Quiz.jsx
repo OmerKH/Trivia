@@ -10,7 +10,7 @@ const Quiz = () => {
       {JSON.stringify(selected)}
       {questions.map((question, i) => (
         <Question
-          // selected={selected[i]}
+          selected={selected[i]}
           questionIndex={i}
           key={i}
           question={question}
