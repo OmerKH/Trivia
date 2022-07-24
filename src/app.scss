@@ -1,0 +1,32 @@
+.App {
+  padding: 20px;
+}
+
+.question {
+  margin-bottom: 10px;
+  font-size: large;
+}
+
+.options {
+  padding: 0.5rem;
+}
+
+.option-text {
+  display: flex;
+  flex-direction: row;
+}
+
+.opt-btn {
+  background: transparent;
+  border: 2.5px solid #293264;
+  color: #293264;
+  border-radius: 15px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.selected {
+  background-color: #4d5b9e;
+  color: white;
+  border: none;
+}
