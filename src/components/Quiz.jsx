@@ -1,4 +1,3 @@
-import { nanoid } from "nanoid";
 import React, { useContext, useState } from "react";
 import { ApiContext } from "../providers/ApiProvider";
 import Question from "./Question";
