@@ -1,13 +1,7 @@
 import { useContext } from "react";
 import { ApiContext } from "../providers/ApiProvider";
 
-const Question = ({
-  question,
-  questionIndex,
-  selected,
-  id,
-  selectAnOption,
-}) => {
+const Question = ({ question, id }) => {
   const { updateSelection } = useContext(ApiContext);
 
   return (
@@ -21,10 +15,16 @@ const Question = ({
           <button
             key={i}
             className="opt-btn"
-            style={{
-              backgroundColor: option.selected ? "#D6DBF5" : "white",
-              border: "none",
-            }}
+            style={
+              option.checked && option.correct
+                ? { backgroundColor: "#94D7A2", border: "none" }
+                : option.checked && option.isIncorrect
+                ? { backgroundColor: "#F8BCBC", opacity: 0.5, border: "none" }
+                : {
+                    backgroundColor: option.selected ? "#D6DBF5" : "white",
+                    border: "none",
+                  }
+            }
             onClick={() => updateSelection(option.id, id)}
             dangerouslySetInnerHTML={{ __html: option.text }}
           ></button>

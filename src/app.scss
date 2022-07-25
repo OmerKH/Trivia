@@ -54,3 +54,27 @@ button {
   color: white;
   border: none;
 }
+
+.start-btn {
+  width: 140px;
+  height: 40px;
+  margin: 1rem;
+  border: none;
+  background: #4d5b9e;
+  color: white;
+  border-radius: 6px;
+  font-family: "Karla", sans-serif;
+  cursor: pointer;
+}
+
+.start-btn:focus {
+  outline: none;
+}
+
+.container {
+  margin-top: 30vh;
+}
+
+.start-btn:active {
+  box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
+}

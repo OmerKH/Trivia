@@ -12,11 +12,14 @@ export const ApiContext = createContext(null);
 
 export const ApiProvider = ({ children }) => {
   const [questions, setQuestions] = useState([]);
-  const [selected, setSelected] = useState({});
+  const [score, setScore] = useState(0);
+  const [game, setGame] = useState(false);
+  const [checked, setChecked] = useState(false);
+  const [start, setStart] = useState(false);
 
   useEffect(() => {
     getQuestions();
-  }, []);
+  }, [game]);
 
   const getQuestions = async () => {
     const res = await fetch("https://opentdb.com/api.php?amount=5");
@@ -90,15 +93,74 @@ export const ApiProvider = ({ children }) => {
     );
   }, []);
 
+  const testQuiz = useCallback(() => {
+    setQuestions((prevQuestion) =>
+      prevQuestion.map((question) => {
+        const checkedOptions = question.options.map((option) => {
+          if (option.selected && !option.correct) {
+            return {
+              ...option,
+              isIncorrect: true,
+              checked: true,
+            };
+          } else if (option.selected && option.correct) {
+            setScore((prevScore) => prevScore + 1);
+            return {
+              ...option,
+              isCorrect: true,
+              checked: true,
+            };
+          } else {
+            return {
+              ...option,
+              checked: true,
+            };
+          }
+        });
+        return {
+          ...question,
+          options: checkedOptions,
+        };
+      })
+    );
+    setChecked(true);
+  }, []);
+
+  const startGame = useCallback(() => {
+    setStart(true);
+  }, []);
+
+  const newGame = useCallback(() => {
+    setGame((prevGame) => !prevGame);
+    setChecked(false);
+    setScore(0);
+  }, []);
+
   const apiValue = useMemo(
     () => ({
       questions,
+      start,
+      checked,
+      score,
       setQuestions,
       getQuestions,
       updateSelection,
-      selected,
+      testQuiz,
+      startGame,
+      newGame,
     }),
-    [questions, setQuestions, getQuestions, selected, updateSelection]
+    [
+      questions,
+      start,
+      checked,
+      score,
+      setQuestions,
+      getQuestions,
+      updateSelection,
+      testQuiz,
+      startGame,
+      newGame,
+    ]
   );
 
   return <ApiContext.Provider value={apiValue}>{children}</ApiContext.Provider>;
