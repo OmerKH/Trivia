@@ -1,8 +1,32 @@
+body {
+  background: #f5f7fb;
+  font-family: "Inter", sans-serif;
+}
+
+button {
+  padding: 2px;
+  margin: 2px;
+}
+
 .App {
   padding: 20px;
 }
 
+.quiz {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
 .question {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 10px;
   font-size: large;
 }

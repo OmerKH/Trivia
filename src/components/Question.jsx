@@ -1,7 +1,13 @@
 import { useContext } from "react";
 import { ApiContext } from "../providers/ApiProvider";
 
-const Question = ({ question, questionIndex, selected }) => {
+const Question = ({
+  question,
+  questionIndex,
+  selected,
+  id,
+  selectAnOption,
+}) => {
   const { updateSelection } = useContext(ApiContext);
 
   return (
@@ -15,8 +21,11 @@ const Question = ({ question, questionIndex, selected }) => {
           <button
             key={i}
             className="opt-btn"
-            style={{ backgroundColor: selected === i ? "blue" : "white" }}
-            onClick={() => updateSelection(questionIndex, i)}
+            style={{
+              backgroundColor: option.selected ? "#D6DBF5" : "white",
+              border: "none",
+            }}
+            onClick={() => updateSelection(option.id, id)}
             dangerouslySetInnerHTML={{ __html: option.text }}
           ></button>
         ))}
